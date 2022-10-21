@@ -9,6 +9,8 @@ class LogotiposWidget extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(top: 10),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(
               child: Padding(
@@ -16,7 +18,7 @@ class LogotiposWidget extends StatelessWidget {
                 child: Image.asset(
                   'assets/images/gobierno.png',
                   fit: BoxFit.fitHeight,
-                  height: 38,
+                  height: 46,
                 ),
               ),
             ),
@@ -24,14 +26,14 @@ class LogotiposWidget extends StatelessWidget {
               child: Image.asset(
                 'assets/images/ssp.png',
                 fit: BoxFit.fitHeight,
-                height: 38,
+                height: 42,
               ),
             ),
             Expanded(
               child: Image.asset(
                 'assets/images/c5.png',
                 fit: BoxFit.fitHeight,
-                height: 38,
+                height: 36,
               ),
             ),
             Expanded(

@@ -16,6 +16,62 @@ class NumerosBloc extends Bloc<NumerosEvent, NumerosState> {
       emit(state.copyWith(listaNumeros: event.listaNumeros));
     });
     on<OnBusquedaNumero>(_busquedaNumero);
+    on<OnBusquedaPorFecha>(_busquedaFecha);
+    on<OnReiniciarValores>((event, emit){
+      emit(state.copyWith(listaNumeros: [], buscando: false, noEncontrado: false, error: false, mensajeError: ''));
+    });
+  }
+
+  FutureOr<void> _busquedaFecha(event, emit) async {
+    try {
+      emit(state.copyWith(
+          listaNumeros: [], buscando: true, noEncontrado: false, error: false));
+
+      final http.Response resp = await http
+          .get(Uri.parse(
+              '${Environment.url}/api/numeros/fecha/${event.fecha.toString()}'))
+          .timeout(Duration(seconds: 10), onTimeout: () {
+              emit(state.copyWith(
+                  listaNumeros: [],
+                  buscando: false,
+                  noEncontrado: true,
+                  error: true,
+                  mensajeError:
+                      'Se excedió el tiempo de respuesta, verifique su conexión.'));
+              return throw TimeoutException(
+                  'El servidor tardó demasiado en responder');
+            })
+            .catchError((e){
+              emit(state.copyWith(
+                  listaNumeros: [],
+                  buscando: false,
+                  noEncontrado: true,
+                  error: true,
+                  mensajeError:
+                    'Verifique su conexión a internet'));
+              return throw TimeoutException(
+                  'Verifique su conexión');
+            });
+
+      
+
+      final Numeros numerosResponse = Numeros.fromJson(resp.body);
+      List<Numero> listaNumeros = numerosResponse.numeros;
+      (listaNumeros.isNotEmpty)
+          ? emit(state.copyWith(
+              listaNumeros: listaNumeros,
+              buscando: false,
+              noEncontrado: false,
+              error: false))
+          : emit(state.copyWith(
+              listaNumeros: listaNumeros,
+              buscando: false,
+              noEncontrado: true,
+              error: false));
+      // print(listaNumeros);
+    } on Exception catch (exception) {
+      // TODO: Emitir que no hubo ningun número
+    }
   }
 
   FutureOr<void> _busquedaNumero(event, emit) async {

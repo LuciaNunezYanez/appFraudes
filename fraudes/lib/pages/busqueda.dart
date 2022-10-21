@@ -5,21 +5,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fraudes/blocs/bloc/numeros_bloc.dart';
 import 'package:fraudes/helpers/show_alert_dialog.dart';
 import 'package:fraudes/widgets/drawer.dart';
-import 'package:fraudes/widgets/listaNumeros.dart';
 import 'package:fraudes/widgets/logotipos.dart';
 
-class HomePage extends StatefulWidget {
+class BusquedaPage extends StatefulWidget {
   TextEditingController numeroController = new TextEditingController();
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<BusquedaPage> createState() => _BusquedaPageState();
 }
 
-class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
+class _BusquedaPageState extends State<BusquedaPage> with TickerProviderStateMixin {
   late AnimationController controllerCircular;
 
   @override
   void initState() {
+    // Limpiar lista
+    BlocProvider.of<NumerosBloc>(context).add(OnReiniciarValores());
+
     controllerCircular = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 2),
@@ -51,7 +53,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           appBar: AppBar(
             backgroundColor: Colors.blueGrey,
             title: const Text(
-              'Números de extorsión Durango',
+              'Búsqueda de números',
               style: TextStyle(color: Colors.white),
             ),
           ),
@@ -69,7 +71,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     child: Text(
                       'Ingrese un número para consultar si tiene reporte de fraude o extorsión en el estado de Durango.',
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 15),
+                      style: TextStyle(fontSize: 16),
                     ),
                   ),
                   Row(
@@ -179,14 +181,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           padding: EdgeInsets.only(top: 10),
           child: Text('Números que coinciden',
               style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 22,
                   color: Colors.blueGrey,
                   fontWeight: FontWeight.w800)),
         ),
         ListView.builder(
             scrollDirection: Axis.vertical,
             shrinkWrap: true,
-            padding: const EdgeInsets.all(8),
+            padding: const EdgeInsets.only(top: 8, bottom: 8, left: 50, right: 50),
             itemCount: state.listaNumeros.length,
             itemBuilder: (BuildContext context, int index) {
               return Card(
@@ -194,31 +196,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     ListTile(
-                      leading: Icon(
-                        Icons.phone,
-                        color: Colors.blueGrey,
-                      ),
+                      // leading: Icon(
+                      //   Icons.phone,
+                      //   color: Colors.blueGrey,
+                      // ),
                       title: Text(
                         state.listaNumeros[index].numeroTelefonico,
-                        style: TextStyle(fontSize: 16),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 18),
                       ),
-                      // subtitle: Text('Music by Julie Gable. Lyrics by Sidney Stein.'),
                     ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.end,
-                    //   children: <Widget>[
-                    //     TextButton(
-                    //       child: const Text('BUY TICKETS'),
-                    //       onPressed: () {/* ... */},
-                    //     ),
-                    //     const SizedBox(width: 8),
-                    //     TextButton(
-                    //       child: const Text('LISTEN'),
-                    //       onPressed: () {/* ... */},
-                    //     ),
-                    //     const SizedBox(width: 8),
-                    //   ],
-                    // ),
                   ],
                 ),
               );

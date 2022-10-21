@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fraudes/blocs/bloc/numeros_bloc.dart';
-import 'package:fraudes/pages/home.busqueda.dart';
+import 'package:fraudes/pages/busqueda.dart';
+import 'package:fraudes/pages/inicio.dart';
 import 'package:fraudes/pages/privacidad.dart';
 import 'package:fraudes/pages/tips.dart';
 
@@ -27,7 +28,8 @@ class _MyAppState extends State<MyApp> {
       title: 'Fraudes',
       initialRoute: 'inicio',
       routes: {
-        'inicio' : (_) => HomePage(),
+        'inicio' : (_) => InicioPage(restorationId: 'main',),
+        'busqueda' : (_) => BusquedaPage(),
         'privacidad' : (_) => PrivacidadPage(),
         'tips' : (_) => TipsPage(),
       },

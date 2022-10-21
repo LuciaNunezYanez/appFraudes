@@ -19,6 +19,7 @@ class _DrawerState extends State<DrawerPrincipal> {
             padding: EdgeInsets.zero,
             child: Container(
               decoration: BoxDecoration(
+                border: Border(bottom: BorderSide(color: Colors.grey, width: 1.2)),
                 image: DecorationImage(image: AssetImage('assets/images/fondo.JPG'), fit: BoxFit.cover)
               ),
               child: Column(
@@ -38,10 +39,17 @@ class _DrawerState extends State<DrawerPrincipal> {
             // ), 
           ),
           ListTile(
+            leading: Icon( Icons.home_outlined, color: Colors.blueGrey,),
+            title: Text('Inicio'),
+            onTap: () {
+              Navigator.pushReplacementNamed(context, 'inicio');
+            },
+          ),
+          ListTile(
             leading: Icon( Icons.search_outlined, color: Colors.blueGrey,),
             title: Text('Búsqueda'),
             onTap: () {
-              Navigator.pushReplacementNamed(context, 'inicio');
+              Navigator.pushReplacementNamed(context, 'busqueda');
             },
           ),
           ListTile(
@@ -51,14 +59,14 @@ class _DrawerState extends State<DrawerPrincipal> {
               Navigator.pushReplacementNamed(context, 'tips');
               }
           ),
-          Divider(color: Colors.grey[500],), 
-          ListTile(
-            leading: Icon( Icons.lock_outline, color: Colors.blueGrey),
-            title: Text('Aviso de privacidad'),
-            onTap: () {
-              Navigator.pushReplacementNamed(context, 'privacidad');
-            },
-          ),
+          // Divider(color: Colors.grey[500],), 
+          // ListTile(
+          //   leading: Icon( Icons.lock_outline, color: Colors.blueGrey),
+          //   title: Text('Aviso de privacidad'),
+          //   onTap: () {
+          //     Navigator.pushReplacementNamed(context, 'privacidad');
+          //   },
+          // ),
         ],
       ),
     );
