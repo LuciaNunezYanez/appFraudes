@@ -47,6 +47,9 @@ class _InicioPageState extends State<InicioPage>
           initialDate: DateTime.fromMillisecondsSinceEpoch(arguments! as int),
           firstDate: DateTime(2015),
           lastDate: DateTime.now(),
+          cancelText: 'Cancelar',
+          confirmText: 'Seleccionar',
+          helpText:'Seleccione una fecha'          
         );
       },
     );
