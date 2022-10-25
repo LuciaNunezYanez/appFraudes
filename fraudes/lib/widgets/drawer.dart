@@ -59,7 +59,14 @@ class _DrawerState extends State<DrawerPrincipal> {
               Navigator.pushReplacementNamed(context, 'tips');
               }
           ),
-          // Divider(color: Colors.grey[500],), 
+          Divider(color: Colors.grey[500],), 
+          ListTile(
+            leading: Icon( Icons.info_outline, color: Colors.blueGrey),
+            title: Text('Información'),
+            onTap: () {
+              Navigator.pushReplacementNamed(context, 'informacion');
+              }
+          ),
           // ListTile(
           //   leading: Icon( Icons.lock_outline, color: Colors.blueGrey),
           //   title: Text('Aviso de privacidad'),

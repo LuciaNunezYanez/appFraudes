@@ -42,15 +42,14 @@ class _InicioPageState extends State<InicioPage>
       context: context,
       builder: (BuildContext context) {
         return DatePickerDialog(
-          restorationId: 'date_picker_dialog',
-          initialEntryMode: DatePickerEntryMode.calendarOnly,
-          initialDate: DateTime.fromMillisecondsSinceEpoch(arguments! as int),
-          firstDate: DateTime(2015),
-          lastDate: DateTime.now(),
-          cancelText: 'Cancelar',
-          confirmText: 'Seleccionar',
-          helpText:'Seleccione una fecha'          
-        );
+            restorationId: 'date_picker_dialog',
+            initialEntryMode: DatePickerEntryMode.calendarOnly,
+            initialDate: DateTime.fromMillisecondsSinceEpoch(arguments! as int),
+            firstDate: DateTime(2015),
+            lastDate: DateTime.now(),
+            cancelText: 'Cancelar',
+            confirmText: 'Seleccionar',
+            helpText: 'Seleccione una fecha');
       },
     );
   }
@@ -66,7 +65,8 @@ class _InicioPageState extends State<InicioPage>
     if (newSelectedDate != null) {
       setState(() {
         _fechaSeleccionada.value = newSelectedDate;
-        BlocProvider.of<NumerosBloc>(context).add(OnBusquedaPorFecha('${_fechaSeleccionada.value.year}-${_fechaSeleccionada.value.month}-${_fechaSeleccionada.value.day}'));
+        BlocProvider.of<NumerosBloc>(context).add(OnBusquedaPorFecha(
+            '${_fechaSeleccionada.value.year}-${_fechaSeleccionada.value.month}-${_fechaSeleccionada.value.day}'));
       });
     }
   }
@@ -78,7 +78,8 @@ class _InicioPageState extends State<InicioPage>
 
     // Cargar lista con los números del día
     DateTime _hoy = DateTime.now();
-    BlocProvider.of<NumerosBloc>(context).add(OnBusquedaPorFecha('${_hoy.year}-${_hoy.month}-${_hoy.day}'));
+    BlocProvider.of<NumerosBloc>(context)
+        .add(OnBusquedaPorFecha('${_hoy.year}-${_hoy.month}-${_hoy.day}'));
 
     controllerCircular = AnimationController(
       vsync: this,
@@ -120,19 +121,28 @@ class _InicioPageState extends State<InicioPage>
             child: Column(
               children: [
                 const LogotiposWidget(),
-                const SizedBox(height: 20,),
-                const Text('Números del día', 
-                style: TextStyle(
-                  fontSize: 22, fontWeight: FontWeight.w800, color: Colors.blueGrey
-                ),),
+                const SizedBox(
+                  height: 20,
+                ),
+                const Text(
+                  'Números con registro de fraude o extorsión del día',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w800,
+                    color: Colors.blueGrey,
+                  ),
+                ),
                 OutlinedButton(
                   // style: ButtonStyle(foregroundColor: Colors.red),
                   onPressed: () {
                     // Abrir Date picker
                     _restorableDatePickerRouteFuture.present();
                   },
-                  child: Text('${_fechaSeleccionada.value.day}/${_fechaSeleccionada.value.month}/${_fechaSeleccionada.value.year}',
-                    style: TextStyle(color: Colors.blueGrey[700], fontSize: 14),),
+                  child: Text(
+                    '${_fechaSeleccionada.value.day}/${_fechaSeleccionada.value.month}/${_fechaSeleccionada.value.year}',
+                    style: TextStyle(color: Colors.blueGrey[700], fontSize: 14),
+                  ),
                 ),
                 BlocBuilder<NumerosBloc, NumerosState>(
                   builder: (context, state) {
@@ -146,7 +156,43 @@ class _InicioPageState extends State<InicioPage>
                       return _buscando();
                     } else if (state.buscando == false &&
                         state.listaNumeros.isNotEmpty) {
-                      return _listaBusqueda(state);
+                      return Column(
+                        children: [
+                          _listaBusqueda(state),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Column(
+                            children: [
+                              const Text(
+                                '¡NO CAIGAS!',
+                                style: TextStyle(
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: 18),
+                              ),
+                              const Text(
+                                'CUELGA Y DENUNCIA',
+                                style: TextStyle(
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: 18),
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Image.asset(
+                                'assets/images/089.png',
+                                fit: BoxFit.fitHeight,
+                                height: 70,
+                              ),
+                              const SizedBox(
+                                height: 25,
+                              )
+                            ],
+                          )
+                        ],
+                      );
                     } else if (state.noEncontrado == true &&
                         state.listaNumeros.isEmpty) {
                       return _noEncontrado();
@@ -154,7 +200,14 @@ class _InicioPageState extends State<InicioPage>
                       return const Text('---');
                     }
                   },
-                )
+                ),
+                // const SizedBox(height: 20,),
+                // Column(
+                //   children: [
+                //     Text('¡NO CAIGAS!', style: TextStyle(color: Colors.red, fontWeight: FontWeight.w900, fontSize: 22),),
+                //     Text('CUELGA Y DENUNCIA', style: TextStyle(color: Colors.red, fontWeight: FontWeight.w900, fontSize: 22),),
+                //   ],
+                // )
               ],
             ),
           ),
@@ -259,11 +312,39 @@ class _InicioPageState extends State<InicioPage>
                   color: Colors.green)),
         ),
         SizedBox(
-          height: 15,
+          height: 8,
         ),
         Image.asset(
           'assets/images/ok_phone.png',
           height: 80,
+        ),
+        SizedBox(
+          height: 50,
+        ),
+        Column(
+          children: [
+            Text(
+              '¡NO CAIGAS!',
+              style: TextStyle(
+                  color: Colors.red, fontWeight: FontWeight.w900, fontSize: 18),
+            ),
+            Text(
+              'CUELGA Y DENUNCIA',
+              style: TextStyle(
+                  color: Colors.red, fontWeight: FontWeight.w900, fontSize: 18),
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Image.asset(
+              'assets/images/089.png',
+              fit: BoxFit.fitHeight,
+              height: 70,
+            ),
+            SizedBox(
+              height: 25,
+            )
+          ],
         )
       ],
     );

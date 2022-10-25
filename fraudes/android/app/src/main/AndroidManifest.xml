@@ -5,7 +5,7 @@
 
    <application
         android:label="fraudes"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/iconfraudes">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

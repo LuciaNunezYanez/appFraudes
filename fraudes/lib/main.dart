@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fraudes/blocs/bloc/numeros_bloc.dart';
 import 'package:fraudes/pages/busqueda.dart';
+import 'package:fraudes/pages/informacion.dart';
 import 'package:fraudes/pages/inicio.dart';
 import 'package:fraudes/pages/privacidad.dart';
 import 'package:fraudes/pages/tips.dart';
@@ -32,6 +33,7 @@ class _MyAppState extends State<MyApp> {
         'busqueda' : (_) => BusquedaPage(),
         'privacidad' : (_) => PrivacidadPage(),
         'tips' : (_) => TipsPage(),
+        'informacion' : (_) => InformacionPage(),
       },
     );
   }

@@ -14,7 +14,8 @@ class BusquedaPage extends StatefulWidget {
   State<BusquedaPage> createState() => _BusquedaPageState();
 }
 
-class _BusquedaPageState extends State<BusquedaPage> with TickerProviderStateMixin {
+class _BusquedaPageState extends State<BusquedaPage>
+    with TickerProviderStateMixin {
   late AnimationController controllerCircular;
 
   @override
@@ -59,112 +60,134 @@ class _BusquedaPageState extends State<BusquedaPage> with TickerProviderStateMix
           ),
           body: SingleChildScrollView(
             scrollDirection: Axis.vertical,
-            child: Container(
-              // decoration: BoxDecoration(
-              //       image: DecorationImage(image: AssetImage('assets/images/perfect.png'), fit: BoxFit.cover)
-              //     ),
-              child: Column(
-                children: [
-                  const LogotiposWidget(),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 20, left: 20, right: 20),
-                    child: Text(
-                      'Ingrese un número para consultar si tiene reporte de fraude o extorsión en el estado de Durango.',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 16),
+            child: Column(
+              children: [
+                const LogotiposWidget(),
+                const Padding(
+                  padding: EdgeInsets.only(top: 20, left: 20, right: 20),
+                  child: Text(
+                    'Ingrese un número para consultar si tiene reporte de fraude o extorsión en el estado de Durango.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Expanded(
+                      flex: 3,
+                      child: Padding(
+                        padding: EdgeInsets.all(20.0),
+                        child: TextField(
+                          controller: widget.numeroController,
+                          textAlign: TextAlign.center,
+                          maxLength: 10,
+                          autofocus: false,
+                          style: TextStyle(fontSize: 18),
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                          decoration: const InputDecoration(
+                              focusColor: Colors.green,
+                              contentPadding: EdgeInsets.all(0.5),
+                              focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors.green, width: 1.5)),
+                              hintText: 'Número de teléfono',
+                              alignLabelWithHint: false),
+                        ),
+                      ),
                     ),
-                  ),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Expanded(
-                        flex: 3,
-                        child: Padding(
-                          padding: EdgeInsets.all(20.0),
-                          child: TextField(
-                              controller: widget.numeroController,
-                              textAlign: TextAlign.center,
-                              maxLength: 10,
-                              autofocus: false,
-                              style: TextStyle(fontSize: 18),
-                              keyboardType: TextInputType.number,
-                              inputFormatters: [
-                                FilteringTextInputFormatter.allow(
-                                    RegExp(r'[0-9]')),
-                                FilteringTextInputFormatter.digitsOnly
-                              ],
-                              decoration: const InputDecoration(
-                                  focusColor: Colors.green,
-                                  contentPadding: EdgeInsets.all(0.5),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color:  Colors.green,
-                                      width: 1.5
-                                    )
-                                  ),
-                                  hintText: 'Número de teléfono',
-                                  alignLabelWithHint: false),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 20),
-                          child: ButtonTheme(
-                            minWidth: 100,
-                            height: 300,
-                            child: OutlinedButton(
-                              // style: ButtonStyle(backgroundColor: MaterialStatePropertyAll<Color>(Colors.green)),
-                              child: const Icon(
-                                Icons.search,
-                                color: Colors.green,
-                              ),
-
-                              onPressed: () {
-                                String numero = widget.numeroController.text;
-                                if (numero.length < 7) {
-                                  showAlertMessage(context, 'Atención',
-                                      'Ingrese al menos 7 dígitos');
-                                } else {
-                                  BlocProvider.of<NumerosBloc>(context).add(
-                                      OnBusquedaNumero(
-                                          widget.numeroController.text));
-                                }
-                              },
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 20),
+                        child: ButtonTheme(
+                          minWidth: 100,
+                          height: 300,
+                          child: OutlinedButton(
+                            // style: ButtonStyle(backgroundColor: MaterialStatePropertyAll<Color>(Colors.green)),
+                            child: const Icon(
+                              Icons.search,
+                              color: Colors.green,
                             ),
+
+                            onPressed: () {
+                              String numero = widget.numeroController.text;
+                              if (numero.length < 4) {
+                                showAlertMessage(context, 'Atención',
+                                    'Ingrese al menos 4 dígitos');
+                              } else {
+                                BlocProvider.of<NumerosBloc>(context).add(
+                                    OnBusquedaNumero(
+                                        widget.numeroController.text));
+                              }
+                            },
                           ),
                         ),
                       ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Expanded(child: BlocBuilder<NumerosBloc, NumerosState>(
-                        builder: (context, state) {
-                          if (state.error) {
-                            return _cardError(state);
-                          } else if (state.buscando == false &&
-                              state.noEncontrado == false &&
-                              state.listaNumeros.isEmpty) {
-                            return Container();
-                          } else if (state.buscando == true) {
-                            return _buscando();
-                          } else if (state.buscando == false &&
-                              state.listaNumeros.isNotEmpty) {
-                            return _listaBusqueda(state);
-                          } else if (state.noEncontrado == true &&
-                              state.listaNumeros.isEmpty) {
-                            return _noEncontrado();
-                          } else {
-                            return const Text('---');
-                          }
-                        },
-                      )),
-                    ],
-                  )
-                ],
-              ),
+                    ),
+                  ],
+                ),
+                BlocBuilder<NumerosBloc, NumerosState>(
+                  builder: (context, state) {
+                    if (state.error) {
+                      return _cardError(state);
+                    } else if (state.buscando == false &&
+                        state.noEncontrado == false &&
+                        state.listaNumeros.isEmpty) {
+                      return Container();
+                    } else if (state.buscando == true) {
+                      return _buscando();
+                    } else if (state.buscando == false &&
+                        state.listaNumeros.isNotEmpty) {
+                      return Column(
+                        children: [
+                          _listaBusqueda(state),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Column(
+                            children: [
+                              const Text(
+                                '¡NO CAIGAS!',
+                                style: TextStyle(
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: 18),
+                              ),
+                              const Text(
+                                'CUELGA Y DENUNCIA',
+                                style: TextStyle(
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: 18),
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Image.asset(
+                                'assets/images/089.png',
+                                fit: BoxFit.fitHeight,
+                                height: 70,
+                              ),
+                              const SizedBox(
+                                height: 25,
+                              )
+                            ],
+                          )
+                        ],
+                      );
+                    } else if (state.noEncontrado == true &&
+                        state.listaNumeros.isEmpty) {
+                      return _noEncontrado();
+                    } else {
+                      return const Text('---');
+                    }
+                  },
+                )
+              ],
             ),
           ),
           drawer: DrawerPrincipal(),
@@ -176,7 +199,6 @@ class _BusquedaPageState extends State<BusquedaPage> with TickerProviderStateMix
   _listaBusqueda(NumerosState state) {
     return Column(
       children: [
-        // Text('Ultima actualización: '),
         const Padding(
           padding: EdgeInsets.only(top: 10),
           child: Text('Números que coinciden',
@@ -186,9 +208,11 @@ class _BusquedaPageState extends State<BusquedaPage> with TickerProviderStateMix
                   fontWeight: FontWeight.w800)),
         ),
         ListView.builder(
-            scrollDirection: Axis.vertical,
+            physics: const NeverScrollableScrollPhysics(),
+            // scrollDirection: Axis.vertical,
             shrinkWrap: true,
-            padding: const EdgeInsets.only(top: 8, bottom: 8, left: 50, right: 50),
+            padding:
+                const EdgeInsets.only(top: 8, bottom: 8, left: 50, right: 50),
             itemCount: state.listaNumeros.length,
             itemBuilder: (BuildContext context, int index) {
               return Card(
@@ -285,6 +309,34 @@ class _BusquedaPageState extends State<BusquedaPage> with TickerProviderStateMix
         Image.asset(
           'assets/images/like.png',
           height: 80,
+        ),
+        SizedBox(
+          height: 50,
+        ),
+        Column(
+          children: [
+            Text(
+              '¡NO CAIGAS!',
+              style: TextStyle(
+                  color: Colors.red, fontWeight: FontWeight.w900, fontSize: 18),
+            ),
+            Text(
+              'CUELGA Y DENUNCIA',
+              style: TextStyle(
+                  color: Colors.red, fontWeight: FontWeight.w900, fontSize: 18),
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Image.asset(
+              'assets/images/089.png',
+              fit: BoxFit.fitHeight,
+              height: 70,
+            ),
+            SizedBox(
+              height: 25,
+            )
+          ],
         )
       ],
     );

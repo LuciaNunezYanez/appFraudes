@@ -5,6 +5,7 @@ import 'package:fraudes/global/environment.dart';
 import 'package:fraudes/widgets/logotipos.dart';
 import 'package:fraudes/widgets/widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'dart:math';
 
 class TipsPage extends StatefulWidget {
   TipsPage({Key? key}) : super(key: key);
@@ -16,6 +17,8 @@ class TipsPage extends StatefulWidget {
 class _TipsPageState extends State<TipsPage> {
   bool _puedeLlamar = false;
   Future<void>? _launched;
+  int num1 = 1;
+  int num2 = 2;
 
   @override
   void initState() {
@@ -26,6 +29,14 @@ class _TipsPageState extends State<TipsPage> {
         _puedeLlamar = result;
       });
     });
+
+    // Generar números aleatorios
+    Random rnd = Random();
+    num1 = 1 + rnd.nextInt(11 - 1);
+    num2 = 1 + rnd.nextInt(11 - 1);
+    if (num1 == num2) {
+      num2 = rnd.nextInt(11 - 1);
+    }
   }
 
   Future<void> _lanzarNavegador(Uri url) async {
@@ -83,9 +94,10 @@ class _TipsPageState extends State<TipsPage> {
           body: SingleChildScrollView(
             child: Column(
               children: [
-                LogotiposWidget(),
+                const LogotiposWidget(),
                 Padding(
-                  padding: const EdgeInsets.only(top: 25.0, left: 25.0, right: 25.0 ),
+                  padding:
+                      const EdgeInsets.only(top: 25.0, left: 25.0, right: 25.0),
                   child: Column(
                     children: [
                       InkWell(
@@ -185,35 +197,18 @@ class _TipsPageState extends State<TipsPage> {
 
                 Padding(
                   padding: const EdgeInsets.all(25.0),
-                  child: CachedNetworkImage(
-                    imageUrl:
-                        "https://pbs.twimg.com/media/Fdxm_F4XEBINlMv?format=jpg&name=small",
-                    placeholder: (context, url) =>
-                        new Image.asset('assets/images/tips1.jfif'),
-                    errorWidget: (context, url, error) => new Icon(Icons.error),
+                  child: Image.asset(
+                    'assets/images/info$num1.png',
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(25.0),
-                  child: CachedNetworkImage(
-                    imageUrl:
-                        "https://pbs.twimg.com/media/FfDWYhbWAAACpHi?format=jpg&name=small",
-                    placeholder: (context, url) =>
-                        new Image.asset('assets/images/tips1.jfif'),
-                    errorWidget: (context, url, error) => new Icon(Icons.error),
+                  child: Image.asset(
+                    'assets/images/info$num2.png',
+                    // fit: BoxFit.fitHeight,
+                    // height: 42,
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(25.0),
-                  child: CachedNetworkImage(
-                    imageUrl:
-                        "https://pbs.twimg.com/media/Fezs_-EX0AEWYgT?format=jpg&name=small",
-                    placeholder: (context, url) =>
-                        new Image.asset('assets/images/tips1.jfif'),
-                    errorWidget: (context, url, error) => new Icon(Icons.error),
-                  ),
-                ),
-
                 Padding(
                   padding: EdgeInsets.only(left: 25, right: 25, bottom: 25),
                   child: InkWell(
@@ -237,7 +232,7 @@ class _TipsPageState extends State<TipsPage> {
                     ),
                     onTap: () async {
                       setState(() {
-                        _launched = _enviarCorreo('${Environment.correoDudas}');
+                        _launched = _enviarCorreo(Environment.correoDudas);
                       });
                     },
                   ),
@@ -245,24 +240,6 @@ class _TipsPageState extends State<TipsPage> {
               ],
             ),
           ),
-
-          // Image.network('https://pbs.twimg.com/media/FfIlkUwXoAI_gHL?format=jpg&name=small',
-          // errorBuilder: (context, error, stackTrace) {
-          //   throw TimeoutException('sadasd');
-          //   return Image.asset('assets/images/perfect.png');
-          // },
-          // loadingBuilder: (context, child, loadingProgress) {
-          //   if(loadingProgress == null ) return child;
-          //   return Image.asset('assets/images/perfect.png');
-          // },
-          // ),
-
-          // Container(
-          //   child: FadeInImage.assetNetwork(
-          //     placeholder: 'assets/images/perfect.png',
-          //     image: 'https://pbs.twimg.com/media/FfIlkUwXoAI_gHL?format=jpg&name=small',
-          //     imageErrorBuilder: (context, error, stackTrace) => new Icon(Icons.ac_unit),),
-          // ),
           drawer: DrawerPrincipal(),
         )
       ],
