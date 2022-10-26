@@ -21,7 +21,7 @@ class _InicioPageState extends State<InicioPage>
   String? get restorationId => widget.restorationId;
 
   final RestorableDateTime _fechaSeleccionada =
-      RestorableDateTime(DateTime.now());
+      RestorableDateTime(DateTime.now().subtract(Duration(days:1)));
 
   late final RestorableRouteFuture<DateTime?> _restorableDatePickerRouteFuture =
       RestorableRouteFuture<DateTime?>(
@@ -46,7 +46,7 @@ class _InicioPageState extends State<InicioPage>
             initialEntryMode: DatePickerEntryMode.calendarOnly,
             initialDate: DateTime.fromMillisecondsSinceEpoch(arguments! as int),
             firstDate: DateTime(2015),
-            lastDate: DateTime.now(),
+            lastDate: DateTime.now().subtract(Duration(days:1)),
             cancelText: 'Cancelar',
             confirmText: 'Seleccionar',
             helpText: 'Seleccione una fecha');
@@ -76,10 +76,10 @@ class _InicioPageState extends State<InicioPage>
     // Limpiar lista
     BlocProvider.of<NumerosBloc>(context).add(OnReiniciarValores());
 
-    // Cargar lista con los números del día
-    DateTime _hoy = DateTime.now();
+    // Cargar lista con los números del día anterior
+    DateTime _ayer = DateTime.now().subtract(Duration(days:1));
     BlocProvider.of<NumerosBloc>(context)
-        .add(OnBusquedaPorFecha('${_hoy.year}-${_hoy.month}-${_hoy.day}'));
+        .add(OnBusquedaPorFecha('${_ayer.year}-${_ayer.month}-${_ayer.day}'));
 
     controllerCircular = AnimationController(
       vsync: this,
@@ -112,7 +112,7 @@ class _InicioPageState extends State<InicioPage>
           appBar: AppBar(
             backgroundColor: Colors.blueGrey,
             title: const Text(
-              'Números de extorsión Durango',
+              'Antiextorsión Durango',
               style: TextStyle(color: Colors.white),
             ),
           ),

@@ -26,7 +26,7 @@ class _DrawerState extends State<DrawerPrincipal> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Números de extorsión\nDurango',
+                  Text('Antiextorsión\nDurango',
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 25, color: Colors.blueGrey, fontWeight: FontWeight.w600,)),
                 ],

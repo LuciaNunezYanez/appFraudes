@@ -4,8 +4,8 @@
   <uses-permission android:name="android.permission.INTERNET" />
 
    <application
-        android:label="fraudes"
-        android:icon="@mipmap/iconfraudes">
+        android:label="Antiextorsión Durango"
+        android:icon="@mipmap/launcher_fraude">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

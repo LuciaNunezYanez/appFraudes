@@ -32,10 +32,10 @@ class _TipsPageState extends State<TipsPage> {
 
     // Generar números aleatorios
     Random rnd = Random();
-    num1 = 1 + rnd.nextInt(11 - 1);
-    num2 = 1 + rnd.nextInt(11 - 1);
+    num1 = 1 + rnd.nextInt(10 - 1);
+    num2 = 1 + rnd.nextInt(10 - 1);
     if (num1 == num2) {
-      num2 = rnd.nextInt(11 - 1);
+      num2 = rnd.nextInt(10 - 1);
     }
   }
 

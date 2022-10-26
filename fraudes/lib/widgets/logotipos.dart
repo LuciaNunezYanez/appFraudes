@@ -18,7 +18,7 @@ class LogotiposWidget extends StatelessWidget {
                 child: Image.asset(
                   'assets/images/gobierno.png',
                   fit: BoxFit.fitHeight,
-                  height: 46,
+                  height: 48,
                 ),
               ),
             ),
@@ -26,7 +26,7 @@ class LogotiposWidget extends StatelessWidget {
               child: Image.asset(
                 'assets/images/ssp.png',
                 fit: BoxFit.fitHeight,
-                height: 42,
+                height: 48,
               ),
             ),
             Expanded(
@@ -40,16 +40,16 @@ class LogotiposWidget extends StatelessWidget {
               child: Image.asset(
                 'assets/images/089.png',
                 fit: BoxFit.fitHeight,
-                height: 38,
+                height: 36,
               ),
             ),
-            Expanded(
-              child: Image.asset(
-                'assets/images/ucibernetica.png',
-                fit: BoxFit.fitHeight,
-                height: 38,
-              ),
-            )
+            // Expanded(
+            //   child: Image.asset(
+            //     'assets/images/ucibernetica.png',
+            //     fit: BoxFit.fitHeight,
+            //     height: 39,
+            //   ),
+            // )
           ],
         ),
       ),
