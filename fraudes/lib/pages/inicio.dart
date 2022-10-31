@@ -112,7 +112,7 @@ class _InicioPageState extends State<InicioPage>
           appBar: AppBar(
             backgroundColor: Colors.blueGrey,
             title: const Text(
-              'Antiextorsión Durango',
+              'Antiextorsión Dgo',
               style: TextStyle(color: Colors.white),
             ),
           ),

@@ -1,4 +1,4 @@
-package com.c5durango.antiextorsiondurango
+package com.c5durango.antiextorsiondgo
 
 import io.flutter.embedding.android.FlutterActivity
 
