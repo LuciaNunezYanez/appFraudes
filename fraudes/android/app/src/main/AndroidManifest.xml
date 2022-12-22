@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.c5durango.antiextorsiondgo">
+    package="com.c5durango.antiextorsiondurango">
     
   <uses-permission android:name="android.permission.INTERNET" />
 

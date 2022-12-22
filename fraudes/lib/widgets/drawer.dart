@@ -33,56 +33,6 @@ class _DrawerState extends State<DrawerPrincipal> {
               ),
             ),
           ),
-
-
-
-
-          // DrawerHeader(
-          //   margin: EdgeInsets.zero,
-          //   padding: EdgeInsets.zero,
-
-          //   child: Container(
-          //     decoration: BoxDecoration(
-          //         border: Border(
-          //             bottom: BorderSide(color: Colors.grey, width: 1.2)),
-          //         image: DecorationImage(
-          //             image: AssetImage('assets/images/fondo_gris_oscuro.jpeg'),
-          //             fit: BoxFit.cover)),
-          //     child: Container(
-
-          //       height: 50.0,
-          //       child: Column(
-          //         crossAxisAlignment: CrossAxisAlignment.center,
-          //         mainAxisAlignment: MainAxisAlignment.center,
-          //         children: [
-          //           Container(
-          //               decoration: BoxDecoration(
-          //                 // border: Border(
-          //                 //     top: BorderSide(color: Colors.blue, width: 1.2),
-          //                 //     bottom:
-          //                 //         BorderSide(color: Colors.red, width: 1.2)),
-
-          //                 // image: DecorationImage(
-          //                 //     image: AssetImage('assets/images/like.png'),
-          //                 //     fit: BoxFit.fitHeight)
-          //               ),
-          //               child: Image(
-          //                 image: AssetImage('assets/images/icono.png'),
-          //                 height: 100,
-          //                 // height: 50.0,
-          //               )),
-          //           Text('ANTIEXTORSIÓN DGO',
-          //               textAlign: TextAlign.center,
-          //               style: TextStyle(
-          //                 fontSize: 22,
-          //                 color: Colors.blueGrey[700],
-          //                 fontWeight: FontWeight.w800,
-          //               ))
-          //         ],
-          //       ),
-          //     ),
-          //   ),
-          // ),
           ListTile(
             leading: const Icon(
               Icons.home_outlined,
