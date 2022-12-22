@@ -104,7 +104,7 @@ class _TipsPageState extends State<TipsPage> {
                           child: Card(
                             child: ListTile(
                               leading: Image.asset(
-                                'assets/images/llamada.png',
+                                'assets/images/llamada2.png',
                                 height: 30,
                               ),
                               title: _puedeLlamar
